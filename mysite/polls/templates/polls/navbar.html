@@ -20,10 +20,10 @@
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="exchange/">Exchange value</a>
+          <a class="nav-link" href="{% url 'exchange_view' %}">Exchange value</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Go to Home</a>
+          <a class="nav-link" href="{% url 'stock_view' %}">Accounts</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
