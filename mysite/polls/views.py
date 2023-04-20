@@ -4,7 +4,7 @@ from .forms import NameForm
 import requests
 import json
 import time
-from .models import apidata,money
+from .models import apidata,money,accountactivity
 from datetime import date
 from django.core.mail import send_mail,BadHeaderError
 from django.conf import settings
@@ -71,12 +71,16 @@ def request_view(request):
 def sendmoney_view(request):
     message="A deposit has occure"
     title="deposit message"
+    obj=accountactivity()
     if request.method == 'POST':
         email=request.POST.get('email')
         amount=request.POST.get('amount')
+        obj.sender_mail=email
+        obj.amount=amount
+        obj.save()
         present_balance=money.objects.all()
         value=present_balance[0].balance
-        cur_balance=int(amount)-int(value)
+        cur_balance=int(value)-int(amount)
         message="A deposit of" + " " + "$"+ amount + " " + "has been credited to your account"
         money.objects.update(balance=cur_balance)
         try:  
@@ -95,3 +99,9 @@ def nav_active(request):
         'request':request,
     }
     return render(request,'polls/navbar.html',context)
+def accountactivity_view(request):
+    data=accountactivity.objects.all()
+    context={
+        'data':data,
+    }
+    return render(request,'polls/accountactivity.html',context)
