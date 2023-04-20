@@ -8,3 +8,7 @@ class apidata(models.Model):
 
 class money(models.Model):
     balance=models.IntegerField()
+
+class accountactivity(models.Model):
+    sender_mail=models.EmailField(max_length=100)
+    amount=models.IntegerField()
