@@ -6,4 +6,5 @@ urlpatterns =[
     path("exchange/",views.exchange_view,name='exchange_view'),
     path("stocks/",views.stock_view,name="stock_view"),
     path("request/",views.request_view,name="request_view"),
+    path("sendmoney/",views.sendmoney_view,name="sendmoney_view"),
 ]

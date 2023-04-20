@@ -7,4 +7,4 @@ class apidata(models.Model):
     value=models.FloatField(max_length=20,unique=True)
 
 class money(models.Model):
-    balance=models.IntegerField(max_length=100)
+    balance=models.IntegerField()

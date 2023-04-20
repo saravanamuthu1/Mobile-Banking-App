@@ -44,12 +44,11 @@ def exchange_view(request):
 def stock_view(request):
     today=date.today()
     balance_amount=money.objects.all()
-    print(balance_amount)
     context={
         'date':today,
         'balance_amount':balance_amount[0],
+        'request':request,
     }
-    print(balance_amount[0])
     return render(request,'polls/Pay.html',context)
 def request_view(request):
     email=''
@@ -58,7 +57,7 @@ def request_view(request):
     if request.method == 'POST':
         email=request.POST.get("email")
         message=request.POST.get("message")
-        try: 
+        try:  
             send_mail(
                 title,
                 message,
@@ -69,3 +68,30 @@ def request_view(request):
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
     return render(request,'polls/requestmoney.html')
+def sendmoney_view(request):
+    message="A deposit has occure"
+    title="deposit message"
+    if request.method == 'POST':
+        email=request.POST.get('email')
+        amount=request.POST.get('amount')
+        present_balance=money.objects.all()
+        value=present_balance[0].balance
+        cur_balance=int(amount)-int(value)
+        message="A deposit of" + " " + "$"+ amount + " " + "has been credited to your account"
+        money.objects.update(balance=cur_balance)
+        try:  
+            send_mail(
+                title,
+                message,
+                settings.EMAIL_HOST_USER,
+                [email]
+            )
+            return HttpResponseRedirect("/stocks/")
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
+    return render(request,'polls/sendmoney.html')
+def nav_active(request):
+    context={
+        'request':request,
+    }
+    return render(request,'polls/navbar.html',context)
