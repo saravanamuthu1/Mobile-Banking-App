@@ -12,3 +12,8 @@ class money(models.Model):
 class accountactivity(models.Model):
     sender_mail=models.EmailField(max_length=100)
     amount=models.IntegerField()
+    datafield=models.DateField(null=True)
+    timefield=models.TimeField(null=True)
+
+class splitbill(models.Model):
+    email=models.EmailField(max_length=50)
