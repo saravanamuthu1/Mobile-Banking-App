@@ -1,33 +1,31 @@
 {% include 'polls/navbar.html' %}
 <div class="container">
 <div class="container-fluid text-center p-3">
-    <h1>Accounts Dashbaord</h1>
+    <span>
+      <i class="fa-sharp fa-solid fa-chart-line fa-2xl"></i>
+      <h1>Accounts Dashbaord</h1>
+    </span>
 </div>
 <div class="container">
     <p>{{date}}</p>
     <p class="text-uppercase">Welcome To Dashbaord</p>
 </div>
 <div class="container">
-<nav class="navbar navbar-light bg-light p-5 w-50">
-    <form class="form-inline">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </nav>
-</div>
-<div class="container">
+<div class="container p-2">
     <p class="text-uppercase">Checking & Savings</p>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Checking......</h5>
+          <i class="fa-solid fa-wallet fa-2xl"></i>
           <a href="{% url 'accountactivity_view' %}" class="card-link">$ {{balance_amount.balance}}</a>
         </div>
       </div>
       <div class="container p-3">
       <nav class="nav nav-pills nav-fill">
-        <a class="nav-item nav-link" href="{% url 'request_view' %}">Request Money</a>
-        <a class="nav-item nav-link" href="{% url 'sendmoney_view' %}">Send Money</a>
-        <a class="nav-item nav-link" href="#">Split Bill</a>
+          <a class="nav-item nav-link" href="{% url 'request_view' %}"> <i class="fa-solid fa-money-bill-transfer fa-2xl"></i>
+          <span><h3>Request Money</h3></span>
+          </a>
+        <a class="nav-item nav-link" href="{% url 'sendmoney_view' %}"><i class="fa-solid fa-comments-dollar fa-2xl"></i><span><h3>Send Money</h3></span></a>
+        <a class="nav-item nav-link" href="{% url 'splitbill_view' %}"><i class="fa-sharp fa-solid fa-arrows-split-up-and-left fa-2xl"></i><span><h3>Split Bill</h3></span></a>
       </nav>
       </div>
 </div>

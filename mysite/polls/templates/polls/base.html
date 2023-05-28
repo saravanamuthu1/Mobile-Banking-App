@@ -13,14 +13,17 @@
   <form method="POST" action="{% url 'exchange_view' %}">
     {% csrf_token %}
   <div class="container-fluid text-center p-3">
-  <h1>Currency convertor</h1>
+  <span>
+  <i class="fa-solid fa-scale-balanced fa-2xl"></i>
+  <h1>Currency Converter</h1>
+</span>
   <div class="input-group mb-3">
     <span class="input-group-text">Amount</span>
     <span class="input-group-text">0.00</span>
     <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" name="amount">
   </div>
-  <div class="input-group input-group-lg p-3">
-    <h4>From<span class="label label-default"></span></h4>
+  <div class="input-group input-group-lg p-5">
+   <h4><span class="label label-default"><i class="fa-sharp fa-solid fa-earth-americas fa-spin fa-2xl"></i></span></h4>
     <select class="custom-select" id="inputGroupSelect04" name="cur_label">
       <option selected>Choose...</option>
       {% for i in data %}
@@ -29,7 +32,7 @@
     </select>
   </div>
   <div class="input-group input-group-lg p-5">
-    <h4>To<span class="label label-default"></span></h4>
+    <h4><span class="label label-default"><i class="fa-sharp fa-solid fa-earth-americas fa-spin fa-2xl"></i></span></h4>
     <select class="custom-select" id="inputGroupSelect04" name="exchange_label">
       <option selected>Choose...</option>
       {% for i in data %}

@@ -4,7 +4,8 @@ from .forms import NameForm
 import requests
 import json
 import time
-from .models import apidata,money,accountactivity
+import datetime
+from .models import apidata,money,accountactivity,splitbill
 from datetime import date
 from django.core.mail import send_mail,BadHeaderError
 from django.conf import settings
@@ -15,6 +16,7 @@ from django.contrib import messages
 def search_view(request):
     if 'q'in request.GET:
         q=request.GET['q']
+        print(q)
         data=apidata.objects.filter(code__icontains=q)
     else:
         data=apidata.objects.all().distinct()
@@ -75,6 +77,8 @@ def sendmoney_view(request):
     if request.method == 'POST':
         email=request.POST.get('email')
         amount=request.POST.get('amount')
+        obj.datafield=date.today()
+        obj.timefield=time.strftime("%H:%M:%S", time.localtime())
         obj.sender_mail=email
         obj.amount=amount
         obj.save()
@@ -90,7 +94,8 @@ def sendmoney_view(request):
                 settings.EMAIL_HOST_USER,
                 [email]
             )
-            return HttpResponseRedirect("/stocks/")
+            messages.success(request,'transaction successfull!!!!')
+            return HttpResponseRedirect("/sendmoney/")
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
     return render(request,'polls/sendmoney.html')
@@ -100,8 +105,20 @@ def nav_active(request):
     }
     return render(request,'polls/navbar.html',context)
 def accountactivity_view(request):
-    data=accountactivity.objects.all()
+    if 'searchmail'in request.GET:
+        q=request.GET['searchmail']
+        data=accountactivity.objects.filter(sender_mail__icontains=q)
+    else:
+        data=reversed(accountactivity.objects.all())
     context={
         'data':data,
-    }
+    } 
     return render(request,'polls/accountactivity.html',context)
+def splitbill_view(request):
+    data=splitbill.objects.all()
+    context={
+        'data':data
+    }
+    return render(request,'polls/splitbills.html',context)
+def appointment_view(request):
+    return render(request,'polls/appointment.html')
